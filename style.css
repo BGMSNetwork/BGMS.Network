@@ -1,0 +1,790 @@
+/* ==========================================================================
+   1. ГЛОБАЛЬНЫЕ СТИЛИ И ПЕРЕМЕННЫЕ
+   ========================================================================== */
+:root {
+    --bg-dark: #0f1115;       /* Основной фон сайта */
+    --bg-card: #161920;       /* Фон карточек и блоков */
+    --bg-nav: rgba(15, 17, 21, 0.95); /* Полупрозрачный фон шапки с размытием */
+    --primary: #2ecc71;       /* Изумрудно-зеленый цвет (стилистика опыта/изумрудов) */
+    --primary-hover: #27ae60; /* Более темный зеленый для эффекта наведения */
+    --text-main: #f5f6fa;     /* Основной контрастный текст */
+    --text-muted: #a4b0be;    /* Второстепенный (серый) текст */
+    --font-sans: 'Inter', sans-serif;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Плавная анимация */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Общие контейнеры для секций */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================================================
+   2. ШАПКА САЙТА И НАВИГАЦИЯ
+   ========================================================================== */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-nav);
+    backdrop-filter: blur(10px); /* Эффект размытия стекла */
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo-highlight {
+    color: var(--primary);
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-main);
+}
+
+/* ==========================================================================
+   3. ОБНОВЛЕННЫЙ КИНЕМАТОГРАФИЧНЫЙ БАННЕР (HERO SECTION)
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 80px 20px;
+    
+    /* Градиент заката от оранжевого к глубокому фиолетовому на случай, если картинка не прогрузится */
+    background: linear-gradient(135deg, #e67e22 0%, #8e44ad 100%);
+    
+    /* Подключение фонового изображения */
+    background-image: url('landscape.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Эффект параллакса при прокрутке */
+}
+
+/* Затемняющий минималистичный оверлей для читаемости текста поверх фото */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(15, 17, 21, 0.3) 0%, rgba(15, 17, 21, 0.85) 100%);
+    z-index: 1;
+}
+
+/* Обновленные стили для центрирования элементов на главном экране */
+.hero-content {
+    position: relative;
+    max-width: 850px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем всё строго по горизонтали */
+}
+
+/* Контейнер для счетчика игроков */
+.counter-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+/* Обновленный счетчик: убрали темный фон, оставили чистый минимализм */
+.player-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: transparent; /* Полностью прозрачный фон */
+    padding: 10px 0;
+}
+
+/* Мигающая сочная зеленая точка */
+.pulse-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
+    animation: glow-pulse 1.5s infinite alternate; /* Эффект плавного дыхания/мигания */
+}
+
+@keyframes glow-pulse {
+    0% {
+        transform: scale(0.9);
+        box-shadow: 0 0 5px rgba(46, 204, 113, 0.6), 0 0 10px rgba(46, 204, 113, 0.4);
+    }
+    100% {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(46, 204, 113, 1), 0 0 25px rgba(46, 204, 113, 0.8);
+    }
+}
+
+/* Контейнер для вертикального списка режимов */
+.servers-modes-grid.vertical-list {
+    display: flex;
+    flex-direction: column; /* Выстраиваем карточки строго друг под друга списком */
+    gap: 15px; /* Уменьшили расстояние, чтобы список был собранным */
+    width: 100%;
+    max-width: 600px; /* Немного сузили ширину для более элегантного вида списка */
+    margin: 30px auto;
+}
+
+/* Общие стили для карточек в виде списка */
+.server-mode-card {
+    position: relative;
+    height: 120px; /* Уменьшили высоту со 140px до 100px, чтобы список не занимал весь экран */
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(22, 25, 32, 0.4);
+    backdrop-filter: blur(8px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center; /* Центрируем текст по вертикали внутри плашки */
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Выравнивание информации по центру плашки */
+.mode-info {
+    position: relative;
+    z-index: 2;
+    padding: 5px 15px; /* Сделали аккуратные отступы внутри компактного списка */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* Индикаторы статуса (Онлайн / В разработке) */
+.mode-status-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.mode-status-badge.soon {
+    background-color: rgba(255, 165, 0, 0.15);
+    color: #ffa500; /* Оранжевый цвет для Soon */
+}
+
+.mode-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+}
+
+.mode-desc {
+    font-size: 0.85rem;
+    color: #a4b0be;
+    line-height: 1.4;
+}
+
+/* Адаптивность для мобильных телефонов */
+@media (max-width: 680px) {
+    .servers-modes-grid {
+        flex-direction: column; /* На смартфонах плашки встают друг под друга */
+        gap: 15px;
+    }
+    .server-mode-card {
+        height: 130px;
+    }
+}
+
+
+/* Контейнер для группы кнопок (выстраивает их в один ряд) */
+.cta-buttons-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* Обновленная мощная кнопка копирования IP */
+.btn-copy-ip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: #ffffff;
+    border: none;
+    min-width: 280px; /* Минимальная ширина, чтобы кнопка не сжималась */
+    padding: 18px 45px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-copy-ip:hover {
+    transform: translateY(-4px); /* Кнопка сочно приподнимается */
+    box-shadow: 0 15px 35px rgba(46, 204, 113, 0.6); /* Усиленное свечение */
+    filter: brightness(1.1);
+}
+
+.btn-copy-ip:active {
+    transform: translateY(-1px);
+}
+
+.btn-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.server-ip {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Стили для новой кнопки "Скачать лаунчер" */
+.btn-launcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff; /* Минималистичная белая рамка */
+    min-width: 280px;
+    padding: 16px 45px;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: var(--font-sans);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    outline: none; /* Добавить эту строчку, чтобы убрать системную обводку кнопки */
+}
+
+.btn-launcher:hover {
+    background-color: #ffffff; /* При наведении кнопка заливается белым */
+    color: #12151c; /* Текст становится темным */
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+}
+
+.btn-launcher:active {
+    transform: translateY(-1px);
+}
+
+.launcher-btn-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.launcher-btn-sub {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* Адаптивность кнопок под экраны телефонов */
+@media (max-width: 768px) {
+    .cta-buttons-group {
+        flex-direction: column; /* На мобилках кнопки встают друг под друга */
+        width: 100%;
+    }
+    .btn-copy-ip, .btn-launcher {
+        width: 100%; /* Растягиваются на всю ширину экрана смартфона */
+    }
+}
+
+
+/* ==========================================================================
+   4. ОСОБЕННОСТИ СЕРВЕРА (CSS GRID)
+   ========================================================================== */
+.features-section {
+    background-color: var(--bg-card);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки одинаковой ширины */
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: var(--bg-dark);
+    padding: 40px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: var(--transition-smooth);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(46, 204, 113, 0.2);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.feature-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.feature-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. КАК НАЧАТЬ ИГРАТЬ (FLEXBOX)
+   ========================================================================== */
+.steps-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.step-card {
+    flex: 1; /* Карточки делят пространство поровну */
+    background-color: var(--bg-card);
+    padding: 40px 30px;
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--primary);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+}
+
+.step-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.step-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.step-desc b {
+    color: var(--text-main);
+}
+
+/* ==========================================================================
+   6. ПОДВАЛ САЙТА (FOOTER)
+   ========================================================================== */
+.main-footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: var(--bg-dark);
+}
+
+.main-footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   7. АДАПТИВНОСТЬ (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Адаптация для планшетов */
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки вместо 3 */
+    }
+    
+    .steps-container {
+        flex-direction: column; /* Карточки шагов встают друг под друга */
+        gap: 50px;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+}
+
+/* Адаптация для мобильных телефонов */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; /* Элементы шапки выстраиваются вертикально */
+        gap: 15px;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr; /* Полноэкранные карточки особенностей */
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* ==========================================================================
+   СТИЛИ ДЛЯ РАЗДЕЛА ПРАВИЛ
+   ========================================================================== */
+.rules-section {
+    background-color: var(--bg-dark);
+}
+
+.rules-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Расстояние между правилами */
+}
+
+.rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    background-color: var(--bg-card);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    transition: var(--transition-smooth);
+}
+
+.rule-item:hover {
+    border-color: rgba(46, 204, 113, 0.15);
+    transform: translateX(5px); /* Легкий интерактивный сдвиг вправо */
+}
+
+.rule-num {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(46, 204, 113, 0.2);
+}
+
+.rule-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.rule-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   СТИЛИ ДЛЯ РАЗДЕЛА ДОНАТА
+   ========================================================================== */
+.donate-section {
+    background-color: #12151c; /* Чуть отличающийся оттенок для контраста секций */
+}
+
+.donate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    gap: 30px;
+    align-items: stretch;
+}
+
+.donate-card {
+    background-color: var(--bg-card);
+    border-radius: 20px;
+    padding: 40px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.donate-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Выделение самой популярной карточки */
+.donate-card.popular {
+    border: 2px solid var(--primary);
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.15);
+    background-color: #1a1e27;
+}
+
+.popular-tag {
+    position: absolute;
+    top: -15px;
+    background-color: var(--primary);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+}
+
+.donate-badge {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.donate-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 30px;
+}
+
+.donate-price span {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.donate-features {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left; /* Списки выравниваем по левому краю для аккуратности */
+}
+
+.donate-features li {
+    font-size: 0.95rem;
+    color: #e2e8f0;
+}
+
+/* Кнопка "Купить" внутри карточек */
+.btn-buy {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: auto; /* Прижимает кнопку к низу карточки */
+    transition: var(--transition-smooth);
+}
+
+.donate-card:hover .btn-buy {
+    background-color: var(--text-main);
+    color: var(--bg-dark);
+}
+
+.donate-card.popular .btn-buy {
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+}
+
+.donate-card.popular:hover .btn-buy {
+    background-color: var(--primary-hover);
+}
+
+/* Адаптивность для Доната и Правил на мобилках */
+@media (max-width: 992px) {
+    .donate-grid {
+        grid-template-columns: 1fr; /* На планшетах донат-карты встают в 1 ряд */
+        gap: 40px;
+    }
+}
+/* Цвет точки, когда сервер работает */
+.pulse-dot.online {
+    background-color: #2ecc71;
+    box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
+    animation: glow-pulse 1.5s infinite alternate;
+}
+
+/* Цвет точки, когда сервер выключен (офлайн) */
+.pulse-dot.offline {
+    background-color: #ff4757; /* Красный цвет */
+    box-shadow: 0 0 10px #ff4757;
+    animation: none; /* Отключаем мигание для выключенного сервера */
+}
+
+/* BGMS PREMIUM VISUAL LAYER */
+body {
+    background: radial-gradient(circle at 50% -10%, rgba(46,204,113,.10), transparent 34%), var(--bg-dark);
+}
+.main-header {
+    background: rgba(10,12,16,.78);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 12px 40px rgba(0,0,0,.18);
+}
+.logo { text-transform: uppercase; letter-spacing: 1px; }
+.nav-link { position: relative; }
+.nav-link::after {
+    content:""; position:absolute; left:0; right:0; bottom:-9px; height:2px;
+    border-radius:99px; background:var(--primary); transform:scaleX(0);
+    transition:transform .25s ease; box-shadow:0 0 12px rgba(46,204,113,.55);
+}
+.nav-link:hover::after,.nav-link.active::after { transform:scaleX(1); }
+.hero-overlay {
+    background:
+      radial-gradient(circle at 50% 38%, rgba(46,204,113,.08), transparent 32%),
+      linear-gradient(180deg, rgba(8,10,14,.24), rgba(8,10,14,.72) 66%, rgba(15,17,21,.98));
+}
+.hero-content { max-width:980px; padding:32px 18px; }
+.hero-title {
+    font-size:clamp(2.7rem,6vw,5.5rem);
+    line-height:.98; letter-spacing:-2.5px; text-transform:uppercase;
+    text-shadow:0 8px 35px rgba(0,0,0,.55); margin-bottom:22px;
+}
+.hero-subtitle {
+    max-width:760px; margin:0 auto 10px; font-size:1.08rem;
+    line-height:1.75; color:rgba(245,246,250,.78);
+}
+.player-counter {
+    gap:14px; padding:12px 20px; border:1px solid rgba(255,255,255,.10);
+    border-radius:999px; background:rgba(9,12,16,.48);
+    backdrop-filter:blur(14px); box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 10px 35px rgba(0,0,0,.22);
+}
+.counter-text { font-size:.95rem; font-weight:700; letter-spacing:.3px; }
+.cta-buttons-group { gap:14px; margin-top:22px; }
+.btn-copy-ip,.btn-launcher { min-height:76px; border-radius:16px; }
+.btn-copy-ip,.btn-launcher { position:relative; overflow:hidden; }
+.btn-copy-ip::before,.btn-launcher::before {
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.16) 48%,transparent 70%);
+    transform:translateX(-120%); transition:transform .65s ease;
+}
+.btn-copy-ip:hover::before,.btn-launcher:hover::before { transform:translateX(120%); }
+.btn-text,.launcher-btn-text { letter-spacing:1.1px; }
+.section-title { font-size:clamp(2rem,4vw,3rem); }
+.section-title::after {
+    content:""; display:block; width:54px; height:3px; margin:16px auto 0;
+    border-radius:99px; background:var(--primary); box-shadow:0 0 18px rgba(46,204,113,.55);
+}
+.feature-card,.step-card,.rule-item,.donate-card {
+    box-shadow:0 18px 55px rgba(0,0,0,.16); backdrop-filter:blur(10px);
+}
+.feature-card:hover,.step-card:hover,.donate-card:hover {
+    box-shadow:0 24px 65px rgba(0,0,0,.28);
+}
+.feature-card,.rule-item,.donate-card {
+    background:linear-gradient(145deg,rgba(22,25,32,.97),rgba(13,15,20,.97));
+}
+.donate-card.popular { box-shadow:0 20px 70px rgba(46,204,113,.18); }
+.main-footer {
+    background:radial-gradient(circle at 50% 0,rgba(46,204,113,.07),transparent 35%),var(--bg-dark);
+}
+@media (max-width:768px) {
+    .hero-title { letter-spacing:-1.2px; }
+    .hero-subtitle { font-size:.98rem; line-height:1.6; }
+    .player-counter { padding:10px 15px; }
+}
