@@ -6,15 +6,15 @@
 
     <!-- SEO -->
     <title>BGMS Network — Анархия Minecraft 1.21.11</title>
-    <meta name="description" content="BGMS Network — анархия-сервер Minecraft 1.21.11. Свобода, экономика, PvP, гриферство. Заходи и начни свою историю.">
-    <meta name="keywords" content="Minecraft, анархия, BGMS, сервер, 1.21.11, PvP, выживание">
+    <meta name="description" content="BGMS Network — анархия-сервер Minecraft 1.21.11. IP: play.bgms-network.ru. Свобода, экономика, PvP, гриферство.">
+    <meta name="keywords" content="Minecraft, анархия, BGMS, сервер, 1.21.11, PvP, play.bgms-network.ru">
     <meta name="author" content="BGMS Network">
     <meta name="theme-color" content="#0f1115">
 
-    <!-- Open Graph (для Discord, Telegram, VK) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="BGMS Network — Анархия Minecraft">
-    <meta property="og:description" content="Свобода действий. Своя территория. Своя история.">
+    <meta property="og:description" content="Свобода действий. Своя территория. Своя история. IP: play.bgms-network.ru">
     <meta property="og:image" content="https://bgms-network.ru/preview.png">
     <meta property="og:url" content="https://bgms-network.ru">
 
@@ -27,7 +27,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='24' fill='%230f1115'/%3E%3Ctext x='64' y='76' text-anchor='middle' font-family='Arial,sans-serif' font-size='38' font-weight='800' fill='%232ecc71'%3EBGMS%3C/text%3E%3C/svg%3E">
 
-    <!-- Google Fonts (ИСПРАВЛЕНО) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -198,10 +198,13 @@
     </footer>
 
     <script>
-        const SERVER_IP = "play.bgms-network.ru";
+        /* ===== КОНФИГ ===== */
+        const SERVER_DOMAIN = "play.bgms-network.ru";
+        const SERVER_PORT = 25565;
+        const SERVER_FULL = `${SERVER_DOMAIN}:${SERVER_PORT}`;
         const STATUS_REFRESH_MS = 60000;
 
-        /* ============ Копирование IP с fallback ============ */
+        /* ===== КОПИРОВАНИЕ IP ===== */
         function copyServerIP() {
             const showCopied = () => {
                 const ipEl = document.getElementById('ip-display');
@@ -217,7 +220,7 @@
 
             const fallbackCopy = () => {
                 const ta = document.createElement('textarea');
-                ta.value = SERVER_IP;
+                ta.value = SERVER_FULL;
                 ta.style.position = 'fixed';
                 ta.style.opacity = '0';
                 document.body.appendChild(ta);
@@ -228,26 +231,31 @@
             };
 
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(SERVER_IP).then(showCopied).catch(fallbackCopy);
+                navigator.clipboard.writeText(SERVER_FULL).then(showCopied).catch(fallbackCopy);
             } else {
                 fallbackCopy();
             }
         }
 
-        /* ============ Статус сервера с двумя API ============ */
-        async function fetchStatus(ip) {
-            // Попытка 1: mcsrvstat.us
+        /* ===== СТАТУС СЕРВЕРА (2 API + fallback) ===== */
+        async function fetchStatus(host, port) {
+            // API 1: mcsrvstat.us
             try {
-                const r = await fetch(`https://api.mcsrvstat.us/3/${ip}`, { cache: 'no-store' });
+                const r = await fetch(`https://api.mcsrvstat.us/3/${host}:${port}`, { cache: 'no-store' });
                 if (r.ok) {
                     const d = await r.json();
-                    if (typeof d.online === 'boolean') return d;
+                    if (typeof d.online === 'boolean') {
+                        return {
+                            online: d.online,
+                            players: d.players ? { online: d.players.online, max: d.players.max } : null
+                        };
+                    }
                 }
             } catch (e) { /* ignore */ }
 
-            // Попытка 2: mcstatus.io (fallback)
+            // API 2: mcstatus.io (fallback)
             try {
-                const r = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`, { cache: 'no-store' });
+                const r = await fetch(`https://api.mcstatus.io/v2/status/java/${host}:${port}`, { cache: 'no-store' });
                 if (r.ok) {
                     const d = await r.json();
                     return {
@@ -260,24 +268,26 @@
             return { online: false };
         }
 
-        function setStatus(online, online_players, max_players) {
+        function setStatus(online, onlinePlayers = 0, maxPlayers = 0) {
             const textEl = document.getElementById('server-status');
             const dotEl = document.getElementById('status-dot');
             if (!textEl || !dotEl) return;
 
             if (online) {
-                textEl.innerHTML = `В сети: <strong>${online_players}/${max_players}</strong> игроков`;
+                textEl.innerHTML = `В сети: <strong>${onlinePlayers}/${maxPlayers}</strong> игроков`;
                 dotEl.style.backgroundColor = '#2ecc71';
                 dotEl.style.boxShadow = '0 0 12px #2ecc71';
+                dotEl.classList.remove('offline');
             } else {
                 textEl.innerHTML = `Сервер: <strong>Офлайн</strong>`;
                 dotEl.style.backgroundColor = '#e74c3c';
                 dotEl.style.boxShadow = '0 0 12px #e74c3c';
+                dotEl.classList.add('offline');
             }
         }
 
         async function updateServerStatus() {
-            const data = await fetchStatus(SERVER_IP);
+            const data = await fetchStatus(SERVER_DOMAIN, SERVER_PORT);
             if (data.online) {
                 const p = data.players || { online: 0, max: 0 };
                 setStatus(true, p.online, p.max);
@@ -286,7 +296,6 @@
             }
         }
 
-        // Первая загрузка + интервал
         updateServerStatus();
         setInterval(updateServerStatus, STATUS_REFRESH_MS);
     </script>
