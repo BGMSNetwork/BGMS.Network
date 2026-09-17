@@ -1,16 +1,14 @@
-/* ==========================================================================
-   1. ГЛОБАЛЬНЫЕ СТИЛИ И ПЕРЕМЕННЫЕ
-   ========================================================================== */
+
 :root {
-    --bg-dark: #0f1115;       /* Основной фон сайта */
-    --bg-card: #161920;       /* Фон карточек и блоков */
-    --bg-nav: rgba(15, 17, 21, 0.95); /* Полупрозрачный фон шапки с размытием */
-    --primary: #2ecc71;       /* Изумрудно-зеленый цвет (стилистика опыта/изумрудов) */
-    --primary-hover: #27ae60; /* Более темный зеленый для эффекта наведения */
-    --text-main: #f5f6fa;     /* Основной контрастный текст */
-    --text-muted: #a4b0be;    /* Второстепенный (серый) текст */
+    --bg-dark: #0f1115;       
+    --bg-card: #161920;      
+    --bg-nav: rgba(15, 17, 21, 0.95); 
+    --primary: #2ecc71;       
+    --primary-hover: #27ae60; 
+    --text-main: #f5f6fa;     
+    --text-muted: #a4b0be;    
     --font-sans: 'Inter', sans-serif;
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Плавная анимация */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
 * {
@@ -30,7 +28,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Общие контейнеры для секций */
 .section-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -45,16 +42,13 @@ body {
     letter-spacing: -0.5px;
 }
 
-/* ==========================================================================
-   2. ШАПКА САЙТА И НАВИГАЦИЯ
-   ========================================================================== */
 .main-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: var(--bg-nav);
-    backdrop-filter: blur(10px); /* Эффект размытия стекла */
+    backdrop-filter: blur(10px); 
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -95,9 +89,6 @@ body {
     color: var(--text-main);
 }
 
-/* ==========================================================================
-   3. ОБНОВЛЕННЫЙ КИНЕМАТОГРАФИЧНЫЙ БАННЕР (HERO SECTION)
-   ========================================================================== */
 .hero-section {
     position: relative;
     min-height: 100vh;
@@ -106,19 +97,14 @@ body {
     justify-content: center;
     text-align: center;
     padding: 120px 20px 80px 20px;
-    
-    /* Градиент заката от оранжевого к глубокому фиолетовому на случай, если картинка не прогрузится */
     background: linear-gradient(135deg, #e67e22 0%, #8e44ad 100%);
-    
-    /* Подключение фонового изображения */
     background-image: url('landscape.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Эффект параллакса при прокрутке */
+    background-attachment: fixed; 
 }
 
-/* Затемняющий минималистичный оверлей для читаемости текста поверх фото */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -129,17 +115,15 @@ body {
     z-index: 1;
 }
 
-/* Обновленные стили для центрирования элементов на главном экране */
 .hero-content {
     position: relative;
     max-width: 850px;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрируем всё строго по горизонтали */
+    align-items: center; 
 }
 
-/* Контейнер для счетчика игроков */
 .counter-container {
     width: 100%;
     display: flex;
@@ -147,16 +131,14 @@ body {
     margin-bottom: 25px;
 }
 
-/* Обновленный счетчик: убрали темный фон, оставили чистый минимализм */
 .player-counter {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background-color: transparent; /* Полностью прозрачный фон */
+    background-color: transparent; 
     padding: 10px 0;
 }
 
-/* Мигающая сочная зеленая точка */
 .pulse-dot {
     width: 12px;
     height: 12px;
@@ -164,7 +146,7 @@ body {
     border-radius: 50%;
     position: relative;
     box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
-    animation: glow-pulse 1.5s infinite alternate; /* Эффект плавного дыхания/мигания */
+    animation: glow-pulse 1.5s infinite alternate; 
 }
 
 @keyframes glow-pulse {
@@ -178,20 +160,19 @@ body {
     }
 }
 
-/* Контейнер для вертикального списка режимов */
 .servers-modes-grid.vertical-list {
     display: flex;
-    flex-direction: column; /* Выстраиваем карточки строго друг под друга списком */
-    gap: 15px; /* Уменьшили расстояние, чтобы список был собранным */
+    flex-direction: column; 
+    gap: 15px; 
     width: 100%;
-    max-width: 600px; /* Немного сузили ширину для более элегантного вида списка */
+    max-width: 600px; 
     margin: 30px auto;
 }
 
-/* Общие стили для карточек в виде списка */
+
 .server-mode-card {
     position: relative;
-    height: 120px; /* Уменьшили высоту со 140px до 100px, чтобы список не занимал весь экран */
+    height: 120px; 
     border-radius: 14px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -199,24 +180,21 @@ body {
     backdrop-filter: blur(8px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
-    align-items: center; /* Центрируем текст по вертикали внутри плашки */
+    align-items: center; 
     text-align: left;
     cursor: pointer;
 }
 
-/* Выравнивание информации по центру плашки */
 .mode-info {
     position: relative;
     z-index: 2;
-    padding: 5px 15px; /* Сделали аккуратные отступы внутри компактного списка */
+    padding: 5px 15px; 
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-
-/* Индикаторы статуса (Онлайн / В разработке) */
 .mode-status-badge {
     display: inline-block;
     font-size: 0.75rem;
@@ -232,7 +210,7 @@ body {
 
 .mode-status-badge.soon {
     background-color: rgba(255, 165, 0, 0.15);
-    color: #ffa500; /* Оранжевый цвет для Soon */
+    color: #ffa500; 
 }
 
 .mode-name {
@@ -249,10 +227,9 @@ body {
     line-height: 1.4;
 }
 
-/* Адаптивность для мобильных телефонов */
 @media (max-width: 680px) {
     .servers-modes-grid {
-        flex-direction: column; /* На смартфонах плашки встают друг под друга */
+        flex-direction: column; 
         gap: 15px;
     }
     .server-mode-card {
@@ -260,8 +237,6 @@ body {
     }
 }
 
-
-/* Контейнер для группы кнопок (выстраивает их в один ряд) */
 .cta-buttons-group {
     display: flex;
     gap: 20px;
@@ -270,7 +245,6 @@ body {
     margin-top: 15px;
 }
 
-/* Обновленная мощная кнопка копирования IP */
 .btn-copy-ip {
     display: flex;
     flex-direction: column;
@@ -279,7 +253,7 @@ body {
     background: linear-gradient(135deg, #2ecc71, #27ae60);
     color: #ffffff;
     border: none;
-    min-width: 280px; /* Минимальная ширина, чтобы кнопка не сжималась */
+    min-width: 280px; 
     padding: 18px 45px;
     border-radius: 14px;
     cursor: pointer;
@@ -289,8 +263,8 @@ body {
 }
 
 .btn-copy-ip:hover {
-    transform: translateY(-4px); /* Кнопка сочно приподнимается */
-    box-shadow: 0 15px 35px rgba(46, 204, 113, 0.6); /* Усиленное свечение */
+    transform: translateY(-4px); 
+    box-shadow: 0 15px 35px rgba(46, 204, 113, 0.6); 
     filter: brightness(1.1);
 }
 
@@ -314,7 +288,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Стили для новой кнопки "Скачать лаунчер" */
 .btn-launcher {
     display: flex;
     flex-direction: column;
@@ -322,7 +295,7 @@ body {
     justify-content: center;
     background: transparent;
     color: #ffffff;
-    border: 2px solid #ffffff; /* Минималистичная белая рамка */
+    border: 2px solid #ffffff; 
     min-width: 280px;
     padding: 16px 45px;
     border-radius: 14px;
@@ -330,12 +303,12 @@ body {
     text-decoration: none;
     font-family: var(--font-sans);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-    outline: none; /* Добавить эту строчку, чтобы убрать системную обводку кнопки */
+    outline: none; 
 }
 
 .btn-launcher:hover {
-    background-color: #ffffff; /* При наведении кнопка заливается белым */
-    color: #12151c; /* Текст становится темным */
+    background-color: #ffffff; 
+    color: #12151c; 
     transform: translateY(-4px);
     box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
 }
@@ -358,28 +331,23 @@ body {
     font-weight: 600;
 }
 
-/* Адаптивность кнопок под экраны телефонов */
 @media (max-width: 768px) {
     .cta-buttons-group {
-        flex-direction: column; /* На мобилках кнопки встают друг под друга */
+        flex-direction: column; 
         width: 100%;
     }
     .btn-copy-ip, .btn-launcher {
-        width: 100%; /* Растягиваются на всю ширину экрана смартфона */
+        width: 100%; 
     }
 }
 
-
-/* ==========================================================================
-   4. ОСОБЕННОСТИ СЕРВЕРА (CSS GRID)
-   ========================================================================== */
 .features-section {
     background-color: var(--bg-card);
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки одинаковой ширины */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
 }
 
@@ -413,9 +381,6 @@ body {
     line-height: 1.6;
 }
 
-/* ==========================================================================
-   5. КАК НАЧАТЬ ИГРАТЬ (FLEXBOX)
-   ========================================================================== */
 .steps-container {
     display: flex;
     justify-content: space-between;
@@ -423,7 +388,7 @@ body {
 }
 
 .step-card {
-    flex: 1; /* Карточки делят пространство поровну */
+    flex: 1; 
     background-color: var(--bg-card);
     padding: 40px 30px;
     border-radius: 16px;
@@ -465,9 +430,6 @@ body {
     color: var(--text-main);
 }
 
-/* ==========================================================================
-   6. ПОДВАЛ САЙТА (FOOTER)
-   ========================================================================== */
 .main-footer {
     text-align: center;
     padding: 40px 20px;
@@ -480,18 +442,13 @@ body {
     font-size: 0.85rem;
 }
 
-/* ==========================================================================
-   7. АДАПТИВНОСТЬ (MEDIA QUERIES)
-   ========================================================================== */
-
-/* Адаптация для планшетов */
 @media (max-width: 992px) {
     .features-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки вместо 3 */
+        grid-template-columns: repeat(2, 1fr); 
     }
     
     .steps-container {
-        flex-direction: column; /* Карточки шагов встают друг под друга */
+        flex-direction: column; 
         gap: 50px;
     }
     
@@ -500,10 +457,9 @@ body {
     }
 }
 
-/* Адаптация для мобильных телефонов */
 @media (max-width: 768px) {
     .header-container {
-        flex-direction: column; /* Элементы шапки выстраиваются вертикально */
+        flex-direction: column; 
         gap: 15px;
     }
     
@@ -512,7 +468,7 @@ body {
     }
     
     .features-grid {
-        grid-template-columns: 1fr; /* Полноэкранные карточки особенностей */
+        grid-template-columns: 1fr; 
     }
     
     .hero-title {
@@ -524,9 +480,6 @@ body {
     }
 }
 
-/* ==========================================================================
-   СТИЛИ ДЛЯ РАЗДЕЛА ПРАВИЛ
-   ========================================================================== */
 .rules-section {
     background-color: var(--bg-dark);
 }
@@ -536,7 +489,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Расстояние между правилами */
+    gap: 20px; 
 }
 
 .rule-item {
@@ -552,7 +505,7 @@ body {
 
 .rule-item:hover {
     border-color: rgba(46, 204, 113, 0.15);
-    transform: translateX(5px); /* Легкий интерактивный сдвиг вправо */
+    transform: translateX(5px); 
 }
 
 .rule-num {
@@ -578,16 +531,13 @@ body {
     line-height: 1.6;
 }
 
-/* ==========================================================================
-   СТИЛИ ДЛЯ РАЗДЕЛА ДОНАТА
-   ========================================================================== */
 .donate-section {
-    background-color: #12151c; /* Чуть отличающийся оттенок для контраста секций */
+    background-color: #12151c; 
 }
 
 .donate-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
     align-items: stretch;
 }
@@ -610,7 +560,6 @@ body {
     border-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Выделение самой популярной карточки */
 .donate-card.popular {
     border: 2px solid var(--primary);
     box-shadow: 0 10px 30px rgba(46, 204, 113, 0.15);
@@ -657,7 +606,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    text-align: left; /* Списки выравниваем по левому краю для аккуратности */
+    text-align: left; 
 }
 
 .donate-features li {
@@ -665,7 +614,6 @@ body {
     color: #e2e8f0;
 }
 
-/* Кнопка "Купить" внутри карточек */
 .btn-buy {
     width: 100%;
     padding: 14px;
@@ -677,7 +625,7 @@ body {
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    margin-top: auto; /* Прижимает кнопку к низу карточки */
+    margin-top: auto; 
     transition: var(--transition-smooth);
 }
 
@@ -695,29 +643,22 @@ body {
 .donate-card.popular:hover .btn-buy {
     background-color: var(--primary-hover);
 }
-
-/* Адаптивность для Доната и Правил на мобилках */
 @media (max-width: 992px) {
     .donate-grid {
-        grid-template-columns: 1fr; /* На планшетах донат-карты встают в 1 ряд */
+        grid-template-columns: 1fr; 
         gap: 40px;
     }
 }
-/* Цвет точки, когда сервер работает */
 .pulse-dot.online {
     background-color: #2ecc71;
     box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
     animation: glow-pulse 1.5s infinite alternate;
 }
-
-/* Цвет точки, когда сервер выключен (офлайн) */
 .pulse-dot.offline {
-    background-color: #ff4757; /* Красный цвет */
+    background-color: #ff4757; 
     box-shadow: 0 0 10px #ff4757;
-    animation: none; /* Отключаем мигание для выключенного сервера */
+    animation: none; 
 }
-
-/* BGMS PREMIUM VISUAL LAYER */
 body {
     background: radial-gradient(circle at 50% -10%, rgba(46,204,113,.10), transparent 34%), var(--bg-dark);
 }
