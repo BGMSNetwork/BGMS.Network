@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- ШАПКА САЙТА И НАВИГАЦИЯ -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo">
@@ -21,28 +19,23 @@
             <nav class="nav-menu">
                 <a href="#home" class="nav-link active">Главная</a>
                 <a href="#rules" class="nav-link">Правила</a>
-                <a href="#donate" class="nav-link">Донат</a>
+                <a href="#donate" class="nav-link">Поддержка</a>
                 <a href="#how-to-join" class="nav-link">Как играть</a>
             </nav>
         </div>
     </header>
 
-    <!-- ГЛАВНЫЙ ЭКРАН С ОБНОВЛЕННЫМИ КНОПКАМИ И ИНДИКАТОРОМ -->
     <section id="home" class="hero-section">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">BGMS NETWORK — ТВОЯ АЛЬТЕРНАТИВА АНАРХИИ</h1>
             <p class="hero-subtitle">Свобода действий. Своя территория. Своя история. Заходи в мир BGMS Network и начни создавать его вместе с другими игроками.</p>
-            
-            <!-- Счетчик с автоматическим онлайном -->
             <div class="counter-container">
                 <div class="player-counter">
                     <span class="pulse-dot" id="status-dot"></span>
                     <span class="counter-text" id="server-status">Загрузка статуса...</span>
                 </div>
             </div>
-
-            <!-- Группа из двух кнопок: IP и Лаунчер -->
             <div class="cta-buttons-group">
                 <div class="button-container">
                     <button class="btn-copy-ip" id="copyIpBtn" onclick="copyServerIP()">
@@ -51,8 +44,7 @@
                     </button>
                 </div>
                 <div class="button-container">
-                    <!-- Ссылка напрямую качает созданный архив из папки проекта -->
-                    <a href="https://github.com/BUMERIOUZOV/mst/releases/latest/download/BGMS.Installer.exe" class="btn-launcher" download>
+                    <a href="https://github.com/BGMSNetwork/BGMS.Network/releases/latest/download/BGMS.installer.exe" class="btn-launcher" download>
                         <span class="launcher-btn-text">Скачать лаунчер</span>
                         <span class="launcher-btn-sub">Файл установки (.exe)</span>
                     </a>
@@ -60,14 +52,10 @@
             </div>
         </div>
     </section>
-
-    <!-- РАЗДЕЛ С ПРАВИЛАМИ СЕРВЕРА -->
     <section id="rules" class="rules-section">
         <div class="section-container">
             <h2 class="section-title">Правила сервера</h2>
-            
             <div class="rules-container">
-                <!-- Правило 1.1 -->
                 <div class="rule-item">
                     <div class="rule-num">1.1</div>
                     <div class="rule-content">
@@ -75,8 +63,6 @@
                         <p>Запрещены оскорбления игроков, администрации, флуд, капс и разжигание конфликтов в глобальном чате.</p>
                     </div>
                 </div>
-
-                <!-- Правило 1.2 -->
                 <div class="rule-item">
                     <div class="rule-num">1.2</div>
                     <div class="rule-content">
@@ -84,37 +70,22 @@
                         <p>Использование любого стороннего софта, читов, кликеров, x-ray или багов игры карается перманентным баном.</p>
                     </div>
                 </div>
-
-                <!-- Правило 1.3 -->
                 <div class="rule-item">
                     <div class="rule-num">1.3</div>
-                    <div class="rule-content">
-                        <h3>Безопасность построек</h3>
-                        <p>Запрещено разрушение чужих зданий (гриферство), заливание территорий лавой/водой и создание нецензурных объектов.</p>
-                    </div>
-                </div>
-
-                <!-- Правило 1.4 -->
-                <div class="rule-item">
-                    <div class="rule-num">1.4</div>
                     <div class="rule-content">
                         <h3>Никнеймы и скины</h3>
                         <p>Запрещено использование никнеймов и скинов, содержащих оскорбления, мат, пропаганду насилия или политику.</p>
                     </div>
                 </div>
-
-                <!-- Правило 1.5 -->
                 <div class="rule-item">
-                    <div class="rule-num">1.5</div>
+                    <div class="rule-num">1.4</div>
                     <div class="rule-content">
                         <h3>Экономика и торговля</h3>
                         <p>Запрещен обман игроков при сделках, а также продажа внутриигровых ценностей за реальные деньги вне официального магазина.</p>
                     </div>
                 </div>
-
-                <!-- Правило 1.6 -->
                 <div class="rule-item">
-                    <div class="rule-num">1.6</div>
+                    <div class="rule-num">1.5</div>
                     <div class="rule-content">
                         <h3>Взаимодействие с администрацией</h3>
                         <p>Запрещено вводить администрацию в заблуждение, оспаривать действия модераторов в общем чате или выдавать себя за члена команды сервера.</p>
@@ -123,9 +94,6 @@
             </div>
         </div>
     </section>
-
-
-    <!-- РАЗДЕЛ С ОСОБЕННОСТЯМИ СЕРВЕРА -->
     <section id="features" class="features-section">
         <div class="section-container">
             <h2 class="section-title">Особенности сервера</h2>
@@ -148,8 +116,6 @@
             </div>
         </div>
     </section>
-
-    <!-- РАЗДЕЛ "КАК НАЧАТЬ ИГРАТЬ" -->
     <section id="how-to-join" class="join-section">
         <div class="section-container">
             <h2 class="section-title">Как начать играть</h2>
@@ -157,7 +123,7 @@
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h3 class="step-title">Запустите BGMS Network Launcher</h3>
-                    <p class="step-desc">Введите никнейм, проверьте версию Minecraft<b>1.21.11</b> (Java Edition).</p>
+                    <p class="step-desc">Введите никнейм, проверьте версию Minecraft <b>1.21.11</b> (Java Edition).</p>
                 </div>
                 <div class="step-card">
                     <div class="step-number">2</div>
@@ -172,63 +138,39 @@
             </div>
         </div>
     </section>
-
-    <!-- РАЗДЕЛ ДОНАТА / МАГАЗИНА -->
     <section id="donate" class="donate-section">
         <div class="section-container">
-            <h2 class="section-title">Привилегии и Донат</h2>
+            <h2 class="section-title">Поддержать проект</h2>
             <div class="donate-grid">
-                <!-- Карточка VIP -->
-                <div class="donate-card">
-                    <div class="donate-badge">VIP(В разработке...)</div>
-                    <div class="donate-price">99 ₽ <span>/ мес</span></div>
-                    <ul class="donate-features">
-                        <li>🟢 Префикс [VIP] в чате</li>
-                        <li>🟢 Доступ к команде /kit vip</li>
-                        <li>🟢 Доступ на полный сервер</li>
-                        <li>🟢 3 точки дома (/sethome)</li>
-                    </ul>
-                    <button class="btn-buy">Купить</button>
-                </div>
-                <!-- Карточка PREMIUM -->
                 <div class="donate-card popular">
-                    <div class="popular-tag">Популярно</div>
-                    <div class="donate-badge">PREMIUM(В разработке...)</div>
-                    <div class="donate-price">249 ₽ <span>/ мес</span></div>
+                    <div class="popular-tag">BGMS</div>
+                    <div class="donate-badge">Поддержка проекта</div>
+                    <div class="donate-price">❤️</div>
                     <ul class="donate-features">
-                        <li>🔵 Префикс [Premium] в чате</li>
-                        <li>🔵 Доступ к /kit premium и /fly</li>
-                        <li>🔵 Сохранение инвентаря</li>
-                        <li>🔵 5 точек дома (/sethome)</li>
+                        <li>Помогите развитию BGMS Network</li>
+                        <li>Поддержите оплату сервера и новые обновления</li>
+                        <li>Свяжитесь с разработчиком для поддержки</li>
                     </ul>
-                    <button class="btn-buy">Купить</button>
+                    <a class="btn-buy" href="https://t.me/haistevich" target="_blank" rel="noopener noreferrer">Написать разработчику</a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- ПОДВАЛ САЙТА (FOOTER) -->
     <footer class="main-footer">
         <p>&copy; 2026 BGMS Network. Все права защищены. Сайт не связан с Mojang Studios.</p>
-        <a href="https://github.com/BUMERIOUZOV/mst" class="footer-contact-btn" target="_blank" rel="noopener noreferrer">
+        <a href="https://t.me/bgms_network" class="footer-contact-btn" target="_blank" rel="noopener noreferrer">
             <span>Связь с разработчиками</span>
         </a>
     </footer>
-
-        <!-- ЛОГИКА СИСТЕМЫ ОНЛАЙНА И КОПИРОВАНИЯ -->
     <script>
-        // IP-адрес вашего сервера (и для вывода онлайна, и для функции копирования)
         const SERVER_IP = "151.0.50.17:25565"; 
-
-        // Функция копирования IP
         function copyServerIP() {
             navigator.clipboard.writeText(SERVER_IP).then(() => {
                 const ipSubText = document.querySelector('.server-ip');
                 if (ipSubText) {
                     const originalText = ipSubText.innerText;
                     ipSubText.innerText = "IP скопирован!";
-                    ipSubText.style.color = "#2ecc71"; // Подсвечиваем зеленым при успехе
-                    
+                    ipSubText.style.color = "#2ecc71"; 
                     setTimeout(() => {
                         ipSubText.innerText = originalText;
                         ipSubText.style.color = "";
@@ -238,48 +180,33 @@
                 console.error('Не удалось скопировать текст: ', err);
             });
         }
-
-        // Функция автоматического обновления онлайна через mcsrvstat API v3
         function updateServerStatus() {
             const statusTextElement = document.getElementById('server-status');
             const statusDotElement = document.getElementById('status-dot');
-
             if (!statusTextElement || !statusDotElement) return;
-
-            // Делаем прямой открытый запрос без всяких блокировок CORS
             fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.online === true) {
-                        // Если сервер работает — убираем красное свечение, включаем ЗЕЛЕНЫЙ
                         const onlinePlayers = data.players ? data.players.online : 0;
                         const maxPlayers = data.players ? data.players.max : 0;
-                        
                         statusTextElement.innerHTML = `В сети: <strong>${onlinePlayers}/${maxPlayers}</strong> игроков`;
-                        
-                        // Принудительно меняем стили на зеленые (динамически убираем старое свечение)
                         statusDotElement.style.backgroundColor = '#2ecc71';
                         statusDotElement.style.boxShadow = '0 0 12px #2ecc71';
                     } else {
-                        // Если сервер выключен — горит КРАСНЫЙ
                         statusTextElement.innerHTML = `Сервер: <strong>Офлайн</strong>`;
                         statusDotElement.style.backgroundColor = '#e74c3c';
                         statusDotElement.style.boxShadow = '0 0 12px #e74c3c';
                     }
                 })
                 .catch(error => {
-                    // При ошибке соединения — горит КРАСНЫЙ
                     console.error('Ошибка получения статуса:', error);
                     statusTextElement.innerHTML = `Сервер: <strong>Выключен</strong>`;
                     statusDotElement.style.backgroundColor = '#e74c3c';
                     statusDotElement.style.boxShadow = '0 0 12px #e74c3c';
                 });
         }
-
-        // Запуск при загрузке страницы
         updateServerStatus();
-        
-        // Автоматически обновляем онлайн в фоне каждые 60 секунд
         setInterval(updateServerStatus, 60000);
     </script>
 </body>
