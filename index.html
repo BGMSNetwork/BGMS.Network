@@ -3,301 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO -->
     <title>BGMS Network — Анархия Minecraft 1.21.11</title>
     <meta name="description" content="BGMS Network — анархия-сервер Minecraft 1.21.11. IP: play.bgms-network.ru. Свобода, экономика, PvP, гриферство.">
     <meta name="keywords" content="Minecraft, анархия, BGMS, сервер, 1.21.11, PvP, play.bgms-network.ru">
     <meta name="author" content="BGMS Network">
-    <meta name="theme-color" content="#0f1115">
+    <meta name="theme-color" content="#0a0c10">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="BGMS Network — Анархия Minecraft">
     <meta property="og:description" content="Свобода действий. Своя территория. Своя история. IP: play.bgms-network.ru">
-    <meta property="og:image" content="https://bgms-network.ru/preview.png">
     <meta property="og:url" content="https://bgms-network.ru">
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="BGMS Network — Анархия Minecraft">
     <meta name="twitter:description" content="Свобода действий. Своя территория. Своя история.">
-    <meta name="twitter:image" content="https://bgms-network.ru/preview.png">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='24' fill='%230f1115'/%3E%3Ctext x='64' y='76' text-anchor='middle' font-family='Arial,sans-serif' font-size='38' font-weight='800' fill='%232ecc71'%3EBGMS%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='24' fill='%230a0c10'/%3E%3Ctext x='64' y='78' text-anchor='middle' font-family='Arial,sans-serif' font-size='36' font-weight='800' fill='%232ecc71'%3EBGMS%3C/text%3E%3C/svg%3E">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-container">
-            <div class="logo">
-                <span class="logo-highlight">BGMS</span> Network
-            </div>
-            <nav class="nav-menu">
-                <a href="#home" class="nav-link active">Главная</a>
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <span class="logo-accent">BGMS</span> Network
+            </a>
+            <nav class="nav" id="nav">
                 <a href="#rules" class="nav-link">Правила</a>
+                <a href="#features" class="nav-link">Особенности</a>
+                <a href="#howto" class="nav-link">Как начать</a>
                 <a href="#donate" class="nav-link">Поддержка</a>
-                <a href="#how-to-join" class="nav-link">Как играть</a>
             </nav>
+            <button class="burger" id="burger" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
 
-    <section id="home" class="hero-section">
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">BGMS NETWORK — ТВОЯ АЛЬТЕРНАТИВА АНАРХИИ</h1>
-            <p class="hero-subtitle">Свобода действий. Своя территория. Своя история. Заходи в мир BGMS Network и начни создавать его вместе с другими игроками.</p>
+        <div class="container hero-content">
+            <div class="hero-badge">Minecraft 1.21.11 · Анархия</div>
+            <h1 class="hero-title">
+                BGMS NETWORK<br>
+                <span class="hero-title-accent">Твоя альтернатива анархии</span>
+            </h1>
+            <p class="hero-subtitle">
+                Свобода действий. Своя территория. Своя история.<br>
+                Заходи в мир BGMS Network и начни создавать его вместе с другими игроками.
+            </p>
 
-            <div class="counter-container">
-                <div class="player-counter">
-                    <span class="pulse-dot" id="status-dot"></span>
-                    <span class="counter-text" id="server-status">Загрузка статуса...</span>
-                </div>
+            <div class="status-card" id="status-card">
+                <span class="status-dot" id="status-dot"></span>
+                <span class="status-text" id="server-status">Загрузка статуса...</span>
             </div>
 
-            <div class="cta-buttons-group">
-                <div class="button-container">
-                    <button class="btn-copy-ip" id="copyIpBtn" onclick="copyServerIP()">
-                        <span class="btn-text">СКОПИРОВАТЬ IP</span>
-                        <span class="server-ip" id="ip-display">play.bgms-network.ru</span>
-                    </button>
-                </div>
-                <div class="button-container">
-                    <a href="https://github.com/BGMSNetwork/BGMS.Network/releases/latest/download/BGMS.installer.exe"
-                       class="btn-launcher"
-                       download
-                       rel="noopener noreferrer">
-                        <span class="launcher-btn-text">Скачать лаунчер</span>
-                        <span class="launcher-btn-sub">Файл установки (.exe)</span>
-                    </a>
-                </div>
+            <div class="hero-actions">
+                <button class="btn btn-primary" id="copyIpBtn" onclick="copyServerIP()">
+                    <span class="btn-label">Скопировать IP</span>
+                    <span class="btn-ip" id="ip-display">play.bgms-network.ru</span>
+                </button>
+                <a href="https://github.com/BGMSNetwork/BGMS.Network/releases/latest/download/BGMS.installer.exe"
+                   class="btn btn-secondary"
+                   download
+                   rel="noopener noreferrer">
+                    <span class="btn-label">Скачать лаунчер</span>
+                    <span class="btn-sub">Файл установки (.exe)</span>
+                </a>
             </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Листай вниз</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <section id="rules" class="rules-section">
-        <div class="section-container">
-            <h2 class="section-title">Правила сервера</h2>
-            <div class="rules-container">
-                <div class="rule-item">
+    <section class="section" id="rules">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Правила</span>
+                <h2 class="section-title">Правила сервера</h2>
+                <p class="section-desc">Соблюдай эти правила, чтобы игра оставалась интересной для всех</p>
+            </div>
+            <div class="rules-grid">
+                <div class="rule-card">
                     <div class="rule-num">1.1</div>
-                    <div class="rule-content">
-                        <h3>Уважительное общение</h3>
-                        <p>Запрещены оскорбления игроков, администрации, флуд, капс и разжигание конфликтов в глобальном чате.</p>
-                    </div>
+                    <h3>Уважительное общение</h3>
+                    <p>Запрещены оскорбления игроков, администрации, флуд, капс и разжигание конфликтов в глобальном чате.</p>
                 </div>
-                <div class="rule-item">
+                <div class="rule-card">
                     <div class="rule-num">1.2</div>
-                    <div class="rule-content">
-                        <h3>Честная игра</h3>
-                        <p>Использование любого стороннего софта, читов, кликеров, x-ray или багов игры карается перманентным баном.</p>
-                    </div>
+                    <h3>Честная игра</h3>
+                    <p>Использование любого стороннего софта, читов, кликеров, x-ray или багов игры карается перманентным баном.</p>
                 </div>
-                <div class="rule-item">
+                <div class="rule-card">
                     <div class="rule-num">1.3</div>
-                    <div class="rule-content">
-                        <h3>Никнеймы и скины</h3>
-                        <p>Запрещено использование никнеймов и скинов, содержащих оскорбления, мат, пропаганду насилия или политику.</p>
-                    </div>
+                    <h3>Никнеймы и скины</h3>
+                    <p>Запрещено использование никнеймов и скинов, содержащих оскорбления, мат, пропаганду насилия или политику.</p>
                 </div>
-                <div class="rule-item">
+                <div class="rule-card">
                     <div class="rule-num">1.4</div>
-                    <div class="rule-content">
-                        <h3>Экономика и торговля</h3>
-                        <p>Запрещен обман игроков при сделках, а также продажа внутриигровых ценностей за реальные деньги вне официального магазина.</p>
-                    </div>
+                    <h3>Экономика и торговля</h3>
+                    <p>Запрещен обман игроков при сделках, а также продажа внутриигровых ценностей за реальные деньги вне официального магазина.</p>
                 </div>
-                <div class="rule-item">
+                <div class="rule-card">
                     <div class="rule-num">1.5</div>
-                    <div class="rule-content">
-                        <h3>Взаимодействие с администрацией</h3>
-                        <p>Запрещено вводить администрацию в заблуждение, оспаривать действия модераторов в общем чате или выдавать себя за члена команды сервера.</p>
-                    </div>
+                    <h3>Взаимодействие с администрацией</h3>
+                    <p>Запрещено вводить администрацию в заблуждение, оспаривать действия модераторов в общем чате или выдавать себя за члена команды сервера.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features-section">
-        <div class="section-container">
-            <h2 class="section-title">Особенности сервера</h2>
+    <section class="section section-alt" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Особенности</span>
+                <h2 class="section-title">Что тебя ждёт</h2>
+                <p class="section-desc">Уникальный опыт анархии с комфортом и возможностями</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🌲</div>
-                    <h3 class="feature-name">Улучшенный Survival</h3>
-                    <p class="feature-desc">Исследуйте огромный полу-ванильный мир с надежной защитой от гриферства, уникальными биомами и регулярными ивентами.</p>
+                    <h3>Улучшенный Survival</h3>
+                    <p>Исследуйте огромный полу-ванильный мир с надёжной защитой от гриферства, уникальными биомами и регулярными ивентами.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">💎</div>
-                    <h3 class="feature-name">Развитая экономика</h3>
-                    <p class="feature-desc">Торгуйте с другими игроками, открывайте собственные магазины и соревнуйтесь на рынке, чтобы стать самым богатым магнатом.</p>
+                    <h3>Развитая экономика</h3>
+                    <p>Торгуйте с другими игроками, открывайте собственные магазины и соревнуйтесь на рынке, чтобы стать самым богатым магнатом.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
-                    <h3 class="feature-name">Идеальные плагины</h3>
-                    <p class="feature-desc">Погрузитесь в игровой процесс с большим удовольствием.</p>
+                    <h3>PvP и гриферство</h3>
+                    <p>Полная свобода действий. Защищай свою территорию, нападай на врагов и пиши свою историю в мире анархии.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Защита территорий</h3>
+                    <p>Система приватов позволяет надёжно защитить свой дом и постройки от нежелательных гостей.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎉</div>
+                    <h3>Ивенты</h3>
+                    <p>Регулярные события, конкурсы и активности от администрации, чтобы тебе никогда не было скучно.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Стабильный сервер</h3>
+                    <p>Мощное железо и оптимизация — минимум лагов, максимум удовольствия от игры.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="how-to-join" class="join-section">
-        <div class="section-container">
-            <h2 class="section-title">Как начать играть</h2>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Запустите BGMS Network Launcher</h3>
-                    <p class="step-desc">Введите никнейм, проверьте версию Minecraft <b>1.21.11</b> (Java Edition).</p>
+    <section class="section" id="howto">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Старт</span>
+                <h2 class="section-title">Как начать играть</h2>
+                <p class="section-desc">Всего 3 простых шага до входа в мир BGMS</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3>Запусти BGMS Network Launcher</h3>
+                        <p>Введи никнейм и проверь версию Minecraft <strong>1.21.11</strong> (Java Edition).</p>
+                    </div>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Настройка Minecraft</h3>
-                    <p class="step-desc">Перейдите в раздел «Настройки» и настройте игру под свой компьютер.</p>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3>Настрой Minecraft</h3>
+                        <p>Перейди в раздел «Настройки» и настрой игру под свой компьютер.</p>
+                    </div>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Подключиться</h3>
-                    <p class="step-desc">Нажмите кнопку «Играть».</p>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3>Подключайся</h3>
+                        <p>Нажми кнопку «Играть» и окажись в мире BGMS Network.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="donate" class="donate-section">
-        <div class="section-container">
-            <h2 class="section-title">Поддержать проект</h2>
-            <div class="donate-grid">
-                <div class="donate-card popular">
-                    <div class="popular-tag">BGMS</div>
-                    <div class="donate-badge">Поддержка проекта</div>
-                    <div class="donate-price">❤️</div>
-                    <ul class="donate-features">
-                        <li>Помогите развитию BGMS Network</li>
-                        <li>Поддержите оплату сервера и новые обновления</li>
-                        <li>Свяжитесь с разработчиком для поддержки</li>
-                    </ul>
-                    <a class="btn-buy" href="https://t.me/haistevich" target="_blank" rel="noopener noreferrer">Написать разработчику</a>
-                </div>
+    <section class="section section-alt" id="donate">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Поддержка</span>
+                <h2 class="section-title">Поддержать проект</h2>
+                <p class="section-desc">Помоги развитию BGMS Network</p>
+            </div>
+            <div class="donate-card">
+                <div class="donate-badge">BGMS</div>
+                <h3>Поддержка проекта</h3>
+                <ul class="donate-list">
+                    <li>Помогите развитию BGMS Network</li>
+                    <li>Поддержите оплату сервера и новые обновления</li>
+                    <li>Свяжитесь с разработчиком для поддержки</li>
+                </ul>
+                <a href="https://t.me/haistevich" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    Написать разработчику
+                </a>
             </div>
         </div>
     </section>
 
-    <footer class="main-footer">
-        <p>&copy; 2026 BGMS Network. Все права защищены. Сайт не связан с Mojang Studios.</p>
-        <a href="https://t.me/bgms_network" class="footer-contact-btn" target="_blank" rel="noopener noreferrer">
-            <span>Связь с разработчиками</span>
-        </a>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>© 2026 BGMS Network. Все права защищены. Сайт не связан с Mojang Studios.</p>
+            <a href="https://t.me/bgms_network" class="footer-link" target="_blank" rel="noopener noreferrer">
+                Связь с разработчиками
+            </a>
+        </div>
     </footer>
 
-    <script>
-        /* ===== КОНФИГ ===== */
-        const SERVER_DOMAIN = "play.bgms-network.ru";
-        const SERVER_PORT = 25565;
-        const SERVER_FULL = SERVER_DOMAIN;
-        const STATUS_REFRESH_MS = 60000;
-
-        /* ===== КОПИРОВАНИЕ IP ===== */
-        function copyServerIP() {
-            const showCopied = () => {
-                const ipEl = document.getElementById('ip-display');
-                if (!ipEl) return;
-                const original = ipEl.innerText;
-                ipEl.innerText = "IP скопирован!";
-                ipEl.style.color = "#2ecc71";
-                setTimeout(() => {
-                    ipEl.innerText = original;
-                    ipEl.style.color = "";
-                }, 2000);
-            };
-
-            const fallbackCopy = () => {
-                const ta = document.createElement('textarea');
-                ta.value = SERVER_FULL;
-                ta.style.position = 'fixed';
-                ta.style.opacity = '0';
-                document.body.appendChild(ta);
-                ta.select();
-                try { document.execCommand('copy'); showCopied(); }
-                catch (e) { console.error('Copy failed', e); }
-                document.body.removeChild(ta);
-            };
-
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(SERVER_FULL).then(showCopied).catch(fallbackCopy);
-            } else {
-                fallbackCopy();
-            }
-        }
-
-        /* ===== СТАТУС СЕРВЕРА (2 API + fallback) ===== */
-        async function fetchStatus(host, port) {
-            // API 1: mcsrvstat.us
-            try {
-                const r = await fetch(`https://api.mcsrvstat.us/3/${host}:${port}`, { cache: 'no-store' });
-                if (r.ok) {
-                    const d = await r.json();
-                    if (typeof d.online === 'boolean') {
-                        return {
-                            online: d.online,
-                            players: d.players ? { online: d.players.online, max: d.players.max } : null
-                        };
-                    }
-                }
-            } catch (e) { /* ignore */ }
-
-            // API 2: mcstatus.io (fallback)
-            try {
-                const r = await fetch(`https://api.mcstatus.io/v2/status/java/${host}:${port}`, { cache: 'no-store' });
-                if (r.ok) {
-                    const d = await r.json();
-                    return {
-                        online: d.online,
-                        players: d.players ? { online: d.players.online, max: d.players.max } : null
-                    };
-                }
-            } catch (e) { /* ignore */ }
-
-            return { online: false };
-        }
-
-        function setStatus(online, onlinePlayers = 0, maxPlayers = 0) {
-            const textEl = document.getElementById('server-status');
-            const dotEl = document.getElementById('status-dot');
-            if (!textEl || !dotEl) return;
-
-            if (online) {
-                textEl.innerHTML = `В сети: <strong>${onlinePlayers}/${maxPlayers}</strong> игроков`;
-                dotEl.style.backgroundColor = '#2ecc71';
-                dotEl.style.boxShadow = '0 0 12px #2ecc71';
-                dotEl.classList.remove('offline');
-            } else {
-                textEl.innerHTML = `Сервер: <strong>Офлайн</strong>`;
-                dotEl.style.backgroundColor = '#e74c3c';
-                dotEl.style.boxShadow = '0 0 12px #e74c3c';
-                dotEl.classList.add('offline');
-            }
-        }
-
-        async function updateServerStatus() {
-            const data = await fetchStatus(SERVER_DOMAIN, SERVER_PORT);
-            if (data.online) {
-                const p = data.players || { online: 0, max: 0 };
-                setStatus(true, p.online, p.max);
-            } else {
-                setStatus(false);
-            }
-        }
-
-        updateServerStatus();
-        setInterval(updateServerStatus, STATUS_REFRESH_MS);
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
