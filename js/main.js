@@ -1,160 +1,68 @@
-/* ===== CONFIG ===== */
-const SERVER_DOMAIN = "play.bgms-network.ru";
-const SERVER_PORT = 25565;
-const SERVER_FULL = SERVER_DOMAIN;
-const STATUS_REFRESH_MS = 60000;
+const SERVER = 'play.bgms-network.ru';
+const $ = (s) => document.querySelector(s);
+const toast = (text) => { const el=$('#toast'); if(!el)return; el.textContent=text; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1800); };
 
-/* ===== COPY IP ===== */
-function copyServerIP() {
-    const showCopied = () => {
-        const ipEl = document.getElementById('ip-display');
-        if (!ipEl) return;
-        const original = ipEl.innerText;
-        ipEl.innerText = "IP скопирован!";
-        ipEl.style.color = "#2ecc71";
-        setTimeout(() => {
-            ipEl.innerText = original;
-            ipEl.style.color = "";
-        }, 2000);
-    };
-
-    const fallbackCopy = () => {
-        const ta = document.createElement('textarea');
-        ta.value = SERVER_FULL;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try {
-            document.execCommand('copy');
-            showCopied();
-        } catch (e) {
-            console.error('Copy failed', e);
-        }
-        document.body.removeChild(ta);
-    };
-
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(SERVER_FULL).then(showCopied).catch(fallbackCopy);
-    } else {
-        fallbackCopy();
-    }
+async function copyIP(){
+  try{
+    await navigator.clipboard.writeText(SERVER);
+    toast('IP скопирован: '+SERVER);
+  }catch(e){
+    const t=document.createElement('textarea');
+    t.value=SERVER; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+    toast('IP скопирован: '+SERVER);
+  }
 }
 
-/* ===== SERVER STATUS ===== */
-async function fetchStatus(host, port) {
-    // API 1: mcsrvstat.us
-    try {
-        const r = await fetch(`https://api.mcsrvstat.us/3/${host}:${port}`, { cache: 'no-store' });
-        if (r.ok) {
-            const d = await r.json();
-            if (typeof d.online === 'boolean') {
-                return {
-                    online: d.online,
-                    players: d.players ? { online: d.players.online, max: d.players.max } : null
-                };
-            }
-        }
-    } catch (e) { /* ignore */ }
-
-    // API 2: mcstatus.io (fallback)
-    try {
-        const r = await fetch(`https://api.mcstatus.io/v2/status/java/${host}:${port}`, { cache: 'no-store' });
-        if (r.ok) {
-            const d = await r.json();
-            return {
-                online: d.online,
-                players: d.players ? { online: d.players.online, max: d.players.max } : null
-            };
-        }
-    } catch (e) { /* ignore */ }
-
-    return { online: false };
+function setProgress(id, online, max){
+  const el=$(id);
+  if(!el)return;
+  const percent=max>0 ? Math.min(100, Math.max(2,(online/max)*100)) : 2;
+  el.style.width=percent+'%';
 }
 
-function setStatus(online, onlinePlayers = 0, maxPlayers = 0) {
-    const textEl = document.getElementById('server-status');
-    const dotEl = document.getElementById('status-dot');
-    if (!textEl || !dotEl) return;
+async function status(){
+  try{
+    const r=await fetch('https://api.mcsrvstat.us/3/'+SERVER,{cache:'no-store'});
+    const d=await r.json();
+    const online=d.online ? (d.players?.online||0) : 0;
+    const max=d.players?.max||100;
+    const value=d.online ? online : 0;
 
-    if (online) {
-        textEl.innerHTML = `В сети: <strong>${onlinePlayers}/${maxPlayers}</strong> игроков`;
-        dotEl.style.backgroundColor = '#2ecc71';
-        dotEl.style.boxShadow = '0 0 12px #2ecc71';
-        dotEl.classList.remove('offline');
-    } else {
-        textEl.innerHTML = `Сервер: <strong>Офлайн</strong>`;
-        dotEl.style.backgroundColor = '#e74c3c';
-        dotEl.style.boxShadow = '0 0 12px #e74c3c';
-        dotEl.classList.add('offline');
-    }
-}
+    if($('#heroOnline')) $('#heroOnline').textContent=d.online ? online+' / '+max : 'Офлайн';
+    if($('#statOnline')) $('#statOnline').textContent=d.online ? online : '0';
+    if($('#serverPlayers')) $('#serverPlayers').textContent=d.online ? online : '0';
+    if($('#networkOnline')) $('#networkOnline').textContent=d.online ? online.toLocaleString('ru-RU') : '0';
+    if($('#networkMainPlayers')) $('#networkMainPlayers').textContent=d.online ? online.toLocaleString('ru-RU') : '0';
+    if($('#networkMiniPlayers')) $('#networkMiniPlayers').textContent=d.online ? online : '0';
+    setProgress('#mainProgress',value,max);
+    setProgress('#miniProgress',value,max);
 
-async function updateServerStatus() {
-    const data = await fetchStatus(SERVER_DOMAIN, SERVER_PORT);
-    if (data.online) {
-        const p = data.players || { online: 0, max: 0 };
-        setStatus(true, p.online, p.max);
-    } else {
-        setStatus(false);
-    }
-}
-
-/* ===== MOBILE MENU ===== */
-function initMobileMenu() {
-    const burger = document.getElementById('burger');
-    const nav = document.getElementById('nav');
-    if (!burger || !nav) return;
-
-    burger.addEventListener('click', () => {
-        burger.classList.toggle('active');
-        nav.classList.toggle('open');
-        document.body.classList.toggle('menu-open');
+    if($('#recordToday')) $('#recordToday').textContent='—';
+    if($('#recordAll')) $('#recordAll').textContent='—';
+  }catch(e){
+    ['#heroOnline','#statOnline','#serverPlayers','#networkOnline','#networkMainPlayers','#networkMiniPlayers'].forEach(sel=>{
+      const el=$(sel); if(el) el.textContent=sel==='#heroOnline'?'—':'0';
     });
-
-    nav.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            burger.classList.remove('active');
-            nav.classList.remove('open');
-            document.body.classList.remove('menu-open');
-        });
-    });
+    setProgress('#mainProgress',0,100);
+    setProgress('#miniProgress',0,100);
+  }
 }
 
-/* ===== HEADER SCROLL ===== */
-function initHeaderScroll() {
-    const header = document.getElementById('header');
-    if (!header) return;
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+function menu(){
+  const b=$('#burger'),n=$('#nav');
+  if(!b||!n)return;
+  b.onclick=()=>n.classList.toggle('open');
+  n.querySelectorAll('a').forEach(a=>a.onclick=()=>n.classList.remove('open'));
 }
 
-/* ===== SMOOTH SCROLL ===== */
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-}
+window.addEventListener('scroll',()=>$('#topbar')?.classList.toggle('scrolled',scrollY>20));
 
-/* ===== INIT ===== */
-document.addEventListener('DOMContentLoaded', () => {
-    updateServerStatus();
-    setInterval(updateServerStatus, STATUS_REFRESH_MS);
-    initMobileMenu();
-    initHeaderScroll();
-    initSmoothScroll();
+document.addEventListener('DOMContentLoaded',()=>{
+  status();
+  setInterval(status,60000);
+  menu();
+  $('#copyIp')?.addEventListener('click',copyIP);
+  $('#joinServer')?.addEventListener('click',copyIP);
+  $('#networkJoin')?.addEventListener('click',copyIP);
 });
